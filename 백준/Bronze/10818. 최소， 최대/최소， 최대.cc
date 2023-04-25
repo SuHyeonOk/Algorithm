@@ -10,21 +10,23 @@ int main()
 	int iCount{ 0 };
 	cin >> iCount;
 
-	vector<int> vecNum;
+	int iMin{ 1000000 };
+	int iMax{ -1000000 };
 
 	for (int i = 0; i < iCount; i++)
 	{
 		int iNum{ 0 };
 		cin >> iNum;
 
-		vecNum.push_back(iNum);
+		if (iMin > iNum)
+		{
+			iMin = iNum;
+		}
+		if (iMax < iNum)
+		{
+			iMax = iNum;
+		}
 	}
-
-	vector<int>::iterator iMinIter = min_element(vecNum.begin(), vecNum.end());
-	vector<int>::iterator iMaxIter = max_element(vecNum.begin(), vecNum.end());
-	
-	int iMin = static_cast<int>(*iMinIter);
-	int iMax = static_cast<int>(*iMaxIter);
 
 	cout << iMin << " " << iMax << '\n';
 
