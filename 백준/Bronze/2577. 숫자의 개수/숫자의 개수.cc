@@ -1,33 +1,30 @@
-#pragma once // 헤더의 중복 선언을 방지
 #include <iostream>
 #include <vector>
-#include <algorithm>
+
 using namespace std;
-#include <string>
-#define endl '\n'
+
+unsigned int ans;
 
 int main()
 {
-	ios_base::sync_with_stdio(false);
-	cin.tie(NULL);
+	std::ios::sync_with_stdio(false);
+	std::cin.tie(NULL);
 
-	// ◆ 2577번 숫자의 개수
-	int a, b, c;        
-	int arr[10] = { 0 }; // 0으로 초기화 
+	int A{ 0 }, B{ 0 }, C{ 0 }, iResult{ 0 };
+	cin >> A >> B >> C;
+	iResult = A * B * C;
 
-	cin >> a >> b >> c; 
-
-	int result = a * b * c;
-
-	// 1의 자리를 얻어옴
-	while (result != 0) 
+	int arr[10]{ 0 };
+	while (iResult != 0)
 	{
-		arr[result % 10] += 1;
-		result /= 10;
+		arr[iResult % 10] ++;
+		iResult /= 10;
 	}
 	
 	for (int i = 0; i < 10; i++)
 	{
-		cout << arr[i] << endl;
+		cout << arr[i] << '\n';
 	}
+
+    return 0;
 }
