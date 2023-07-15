@@ -11,8 +11,8 @@ using namespace std;
 int T{ 0 }, M{ 0 }, N{ 0 }, K{ 0 };
 //vector<vector<int>> vec;
 //vector<vector<int>> visited;
-array < array<int, MAX>, MAX> arr{ {0} };
-array < array<int, MAX>, MAX> visited{ {0} };
+array < array<bool, MAX>, MAX> arr{ {0} };
+array < array<bool, MAX>, MAX> visited{ {0} };
 
 void DFS(int y, int x)
 {
@@ -30,9 +30,9 @@ void DFS(int y, int x)
 			continue;
 		}
 
-		if (arr[ny][nx] && !visited[ny][nx])
+		if (arr[ny][nx] == true && visited[ny][nx] == false)
 		{
-			visited[ny][nx]++;
+			visited[ny][nx] = true;
 			DFS(ny, nx);
 		}
 	}
@@ -59,7 +59,7 @@ int main()
 		for (int i = 0; i < K; i++)
 		{
 			cin >> x >> y;
-			arr[y][x] = 1;
+			arr[y][x] = true;
 		}
 
 		int result{ 0 };
@@ -67,10 +67,10 @@ int main()
 		{
 			for (int j = 0; j < M; j++)
 			{
-				if (arr[i][j] != 0 && visited[i][j] == 0)
+				if (arr[i][j] == true && visited[i][j] == false)
 				{
 					result++;
-					visited[i][j]++;
+					visited[i][j] = true;
 					DFS(i, j);
 				}
 			}
