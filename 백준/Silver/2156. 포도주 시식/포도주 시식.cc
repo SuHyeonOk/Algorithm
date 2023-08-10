@@ -1,42 +1,28 @@
 #include <iostream>
-#include <vector>
 
 using namespace std;
+#define MAX 10001
 
-vector<int> Wine;
-vector<int> D;
+int main() 
+{
+    int N{ 0 };
+    int DP[MAX]{ 0 };
+    int arr[MAX]{ 0 };
 
-int max(int a, int b) {
-    return a > b ? a : b;
-}
-
-int dynamic() {
-
-    for (int i = 3; i < Wine.size(); ++i) {
-
-        D.push_back(max(max(D[i - 3] + Wine[i - 1] + Wine[i], D[i - 2] + Wine[i]), D[i - 1]));
+    cin >> N;
+    for (int i = 1; i <= N; i++)
+    {
+        cin >> arr[i];
     }
 
-    return D[Wine.size() - 1];
-
-}
-
-int main() {
-
-    int n;
-    cin >> n;
-
-    for (int i = 0; i < 3; ++i) {
-        Wine.push_back(0);
-        D.push_back(0);
+    DP[1] = arr[1];
+    DP[2] = arr[1] + arr[2];
+    DP[3] = max(arr[1], arr[2]) + arr[3];
+    
+    for (int i = 4; i <= N; i++)
+    {
+        DP[i] = max(max(DP[i - 4] + arr[i - 1], DP[i - 3] + arr[i - 1]), DP[i - 2]) + arr[i];
     }
 
-    int k;
-    for (int i = 0; i < n; ++i) {
-        cin >> k;
-        Wine.push_back(k);
-    }
-
-    cout << dynamic() << endl;
-
+    cout << max(DP[N-1], DP[N]) << '\n';
 }
