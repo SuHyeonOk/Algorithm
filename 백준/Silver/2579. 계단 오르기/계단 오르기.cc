@@ -3,22 +3,26 @@
 using namespace std;
 #define MAX 301
 
-int N;
-int stairs[MAX];
-int dp[MAX];
+int main() 
+{
+    int N{ 0 };
+    int DP[MAX]{ 0 };
+    int arr[MAX]{ 0 };
 
-int main() {
     cin >> N;
+    for (int i = 1; i <= N; i++)
+    {
+        cin >> arr[i];
+    }
 
-    for(auto i=0;i<N;i++) 
-        cin >> stairs[i];
+    DP[1] = arr[1];
+    DP[2] = arr[1] + arr[2];
+    DP[3] = max(arr[1], arr[2]) + arr[3];
     
-    dp[0] = stairs[0];
-    dp[1] = max(stairs[1],stairs[0]+stairs[1]);
-    dp[2] = max(stairs[0] + stairs[2],stairs[1]+stairs[2]);
+    for (int i = 4; i <= N; i++)
+    {
+        DP[i] = max(DP[i - 3] + arr[i - 1], DP[i - 2]) + arr[i];
+    }
 
-    for(auto i=3;i<N; i++) 
-        dp[i] = max(stairs[i] + dp[i-2], stairs[i]+stairs[i-1] +dp[i-3]);
-
-    cout << dp[N-1];
+    cout << DP[N] << '\n';
 }
