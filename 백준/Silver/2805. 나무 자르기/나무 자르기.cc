@@ -4,34 +4,47 @@
 
 using namespace std;
 
-int n,m;
-vector<int> tree;
+int main()
+{
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL); cout.tie(NULL);
 
-int main() {
-    cin >> n >> m;
+    long N{ 0 }, M{ 0 }, iMax{ 0 };
+    cin >> N >> M;
 
-    for(auto i =0; i<n;i++) {
-        int x;
-        cin >> x;
-        tree.push_back(x);
+    vector<long> vec;
+    vec.resize(N);
+
+    for (long i = 0; i < N; i++)
+    {
+        cin >> vec[i];
+        iMax = max(iMax, vec[i]);
     }
 
-    int start =0;
-    int end= *max_element(tree.begin(),tree.end());
-    int result=0;
+    long iLeft{ 1 }, iRight{ iMax }, iPivot{ 0 }, iReault{ 0 };
 
-    while(start<=end) {
-        long long int total = 0;
-        int mid = (start+end) / 2;
-        for(auto i =0; i<n;i++) {
-            if (tree[i]>mid) total += tree[i] - mid;
+    while (iLeft <= iRight)
+    {
+        iPivot = (iLeft + iRight) / 2;
+
+        long iTarget{ 0 };
+        for (long i = 0; i < N; i++)
+        {
+            iTarget += (vec[i] > iPivot) ? vec[i] - iPivot : 0;
         }
-        if(total<m) {
-            end = mid -1;
-        } else {
-            result = mid;
-            start = mid +1;
+
+        if (iTarget < M)
+        {
+            iRight = iPivot - 1;
+        }
+        else
+        {
+            iReault = iPivot;
+            iLeft = iPivot + 1;
         }
     }
-    cout << result;
+
+    cout << iReault << '\n';
+
+    return 0;
 }
