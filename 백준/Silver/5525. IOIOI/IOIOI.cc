@@ -12,18 +12,21 @@ int main()
 
     for (int i = 1; i < M; i++)
     {
-        int cnt{ 0 };
-        if (str[i - 1] == 'I')
+        if (str[i - 1] != 'I')
         {
-            while (str[i] == 'O' && str[i + 1] == 'I')
+            continue;
+        }
+
+        int cnt{ 0 };
+        while (str[i] == 'O' && str[i + 1] == 'I')
+        {
+            i += 2;
+            cnt++;
+
+            if (cnt == N)
             {
-                i += 2;
-                cnt++;
-                if (cnt == N)
-                {
-                    cnt--;
-                    result++;
-                }
+                cnt--;
+                result++;
             }
         }
     }
