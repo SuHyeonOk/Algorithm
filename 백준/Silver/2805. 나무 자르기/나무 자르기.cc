@@ -9,26 +9,26 @@ int main()
     ios_base::sync_with_stdio(false);
     cin.tie(NULL); cout.tie(NULL);
 
-    long N{ 0 }, M{ 0 }, iMax{ 0 };
+    long long N{ 0 }, M{ 0 }, iMax{ 0 };
     cin >> N >> M;
 
-    vector<long> vec;
+    vector<long long> vec;
     vec.resize(N);
 
-    for (long i = 0; i < N; i++)
+    for (long long i = 0; i < N; i++)
     {
         cin >> vec[i];
         iMax = max(iMax, vec[i]);
     }
 
-    long iLeft{ 1 }, iRight{ iMax }, iPivot{ 0 }, iReault{ 0 };
+    long long iLeft{ 1 }, iRight{ iMax }, iPivot{ 0 }, iReault{ 0 };
 
     while (iLeft <= iRight)
     {
         iPivot = (iLeft + iRight) / 2;
 
-        long iTarget{ 0 };
-        for (long i = 0; i < N; i++)
+        long long iTarget{ 0 };
+        for (long long i = 0; i < N; i++)
         {
             iTarget += (vec[i] > iPivot) ? vec[i] - iPivot : 0;
         }
