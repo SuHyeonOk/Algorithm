@@ -25,23 +25,18 @@ void BFS(const int _x, const int _y)
         {
             int x{ qx + dx[i] }, y{ qy + dy[i] };
 
-            if (x < 0 || x >= N || y < 0 || y >= M || vec[x][y] == 'X')
+            if (x < 0 || x >= N || y < 0 || y >= M || vec[x][y] == 'X' || visited[x][y] == true)
             {
                 continue;
             }
 
-            if (visited[x][y] == false && vec[x][y] == 'P')
+            if (vec[x][y] == 'P')
             {
                 cnt++;
-                visited[x][y] = true;
-                q.push({ x, y });
             }
 
-            if (visited[x][y] == false && vec[x][y] == 'O')
-            {
-                visited[x][y] = true;
-                q.push({ x, y });
-            }
+            visited[x][y] = true;
+            q.push({ x, y });
         }
     }
 
