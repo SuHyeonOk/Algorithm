@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <array>
+#include <queue>
 using namespace std;
 
 int N{ 0 }, M{ 0 }, cnt{ 0 };
@@ -10,28 +11,37 @@ vector<vector<bool>> visited;
 
 array<int, 4> dx{ 0, 0, -1, 1 }, dy{ -1, 1, 0, 0 };
 
-void DFS(const int _x, const int _y)
+void BFS(const int _x, const int _y)
 {
-    for (int i = 0; i < 4; i++)
+    queue<pair<int, int>> q;
+    q.push({ _x, _y });
+
+    while (q.empty() == false)
     {
-        int x{ _x + dx[i] }, y{ _y + dy[i] };
+        int qx{ q.front().first }, qy{ q.front().second };
+        q.pop();
 
-        if (x < 0 || x >= N || y < 0 || y >= M || vec[x][y] == 'X')
+        for (int i = 0; i < 4; i++)
         {
-            continue;
-        }
+            int x{ qx + dx[i] }, y{ qy + dy[i] };
 
-        if (visited[x][y] == false && vec[x][y]  == 'P')
-        {
-            cnt++;
-            visited[x][y]  = true;
-            DFS(x, y);
-        }
+            if (x < 0 || x >= N || y < 0 || y >= M || vec[x][y] == 'X')
+            {
+                continue;
+            }
 
-        if (visited[x][y]  == false && vec[x][y]  == 'O')
-        {
-            visited[x][y]  = true;
-            DFS(x, y);
+            if (visited[x][y] == false && vec[x][y] == 'P')
+            {
+                cnt++;
+                visited[x][y] = true;
+                q.push({ x, y });
+            }
+
+            if (visited[x][y] == false && vec[x][y] == 'O')
+            {
+                visited[x][y] = true;
+                q.push({ x, y });
+            }
         }
     }
 
@@ -63,7 +73,7 @@ int main()
         }
     }
 
-    DFS(posX, posY);
+    BFS(posX, posY);
     
     if (0 == cnt)
     {
